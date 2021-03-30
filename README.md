@@ -1,8 +1,8 @@
-#Quiz Game
+# Quiz Game
 
 Quiz game
 
-##Get going
+## Get going
 
 **Clone repo** 🔀
 `git clone https://github.com/thelifeisyours/quizgame`
