@@ -5,7 +5,7 @@ Quiz game
 ## Get going
 
 **Clone repo** 🔀
-`git clone https://github.com/thelifeisyours/quizgame`
+`git clone https://github.com/TheLifeIsYours/quizGame.git`
 
 **Install dependencies** :arrow_heading_down:
 `yarn install`
