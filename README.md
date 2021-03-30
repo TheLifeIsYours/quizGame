@@ -3,6 +3,7 @@
 Quiz game
 
 ##Get going
+
 **Clone repo** 🔀
 `git clone https://github.com/thelifeisyours/quizgame`
 
