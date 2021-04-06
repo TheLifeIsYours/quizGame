@@ -1,0 +1,14 @@
+[
+    {
+        "id": "playerId#232335325464",
+        "displayName": "TheLifeIsYours",
+        "password": "somepassword",
+        "status": "Offline",
+        "stats": {
+            "played": 0,
+            "wins": 0,
+            "losses": 0
+        },
+        "history": []
+    }
+]

@@ -1,0 +1,21 @@
+{
+  "games": [
+    {
+      "id": 0,
+      "title": "Game of cards",
+      "questions": [
+        {
+          "id": 0,
+          "question": "How many in a dusine",
+          "alternatives": [
+            {"id": "a", "value": "2"},
+            {"id": "b", "value": "4"},
+            {"id": "c", "value": "6"},
+            {"id": "d", "value": "12"}
+          ],
+          "answer": {"id": "d", "value": "12"}
+        }
+      ]
+    }
+  ]
+}
