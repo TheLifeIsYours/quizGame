@@ -1,27 +1,31 @@
 import Alternative from '../Alternative/Alternative'
 import Question from '../Question/Question'
+import IGame from './IGame'
 
-export default class Game {
-  id: String
-  title: String
+export default class Game implements IGame {
+  public id: String
+  public title: String
+  public questions: Question[]
+  
+  score: number = 0
   containAnswer: Boolean = false
-  questions: Question[]
-  currentQuestion: Question
-  answeredQuestions: Question[]
+  answeredQuestions: Question[] = []
   gameState: GameState = GameState.Ongoing
-  score: number
+  currentQuestion: Question = this.getRandomQuestion()
 
   constructor(id: string, title: string, questions: Question[]) {
     this.id = id
     this.title = title
-    this.questions = Array.from<Question>(questions)
-    this.answeredQuestions = []
-    this.score = 0
+    this.questions = questions.map((questionData: Question) => new Question(questionData))
   }
 
-  initGame() {
-    const question = this.getRandomQuestion()
-    this.setCurrentQuestion(question)
+  static fromJSON(json: IGame): Game {
+    let game = Object.create(Game.prototype);
+    return Object.assign(game, json, {
+      id: json.id,
+      title: json.title,
+      questions: json.questions
+    });
   }
 
   getQuestions(): Question[] {
