@@ -17,17 +17,22 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var Question_1 = __importDefault(require("../Question/Question"));
 var Game = /** @class */ (function () {
     function Game(id, title, questions) {
+        this.score = 0;
         this.containAnswer = false;
+        this.answeredQuestions = [];
         this.gameState = GameState.Ongoing;
+        this.currentQuestion = this.getRandomQuestion();
         this.id = id;
         this.title = title;
-        this.questions = Array.from(questions);
-        this.answeredQuestions = [];
-        this.score = 0;
+        this.questions = questions.map(function (questionData) { return new Question_1.default(questionData); });
     }
-    Game.prototype.initGame = function () {
-        var question = this.getRandomQuestion();
-        this.setCurrentQuestion(question);
+    Game.fromJSON = function (json) {
+        var game = Object.create(Game.prototype);
+        return Object.assign(game, json, {
+            id: json.id,
+            title: json.title,
+            questions: json.questions
+        });
     };
     Game.prototype.getQuestions = function () {
         return this.questions;

@@ -1,4 +1,5 @@
 import Session from "./models/Session/Session"
+import IGame from "./models/Game/IGame"
 import Game from "./models/Game/Game"
 import Alternative from "./models/Alternative/Alternative"
 
@@ -11,17 +12,22 @@ export default new class QuizzGame {
   games: Game[] = []
 
   initGames() {
-    this.games = GameData.games.map(game => new Game(game))
+    this.games = GameData.games.map((gameData: IGame) => Game.fromJSON(gameData))
   }
 
   getSessions(): Session[] {
     return this.sessions
   }
 
-  createSession(playerId: String, gameId: String): Session {
-    const owner: Player = this.players.find(p => p.id === playerId)
+  createSession(playerId: string, gameId: string): Session {
+    const player = this.players.find(p => p.id === playerId)
+
+    if(!player) {
+      throw new Error(`Player by id ${playerId} not found`)
+    }
+
     const game = this.getGame(gameId)
-    const session = new Session(owner, game)
+    const session = new Session(player, game)
 
     this.sessions.push(session)
     return session
@@ -31,21 +37,33 @@ export default new class QuizzGame {
     
   }
 
-  createPlayer(playerId: String, displayName: String, password: String) {
+  createPlayer(playerId: string, displayName: string, password: string) {
     const player = new Player(playerId, displayName, password)
     this.players.push(player)
   }
 
-  getPlayer(playerId: String): Player { 
-    return this.players.find(p => p.id === playerId)
+  getPlayer(playerId: string): Player { 
+    const player = this.players.find(p => p.id === playerId)
+    
+    if(player) {
+      return player
+    }
+
+    throw new Error(`Player by ${playerId} not found`)
   }
 
   storePlayerData() {
     PlayerDataController.write(this.players)
   }
 
-  getGame(gameId: String): Game {
-    return this.games.find(g => g.id === gameId)
+  getGame(gameId: string): Game {
+    const game = this.games.find(g => g.id === gameId)
+    
+    if(game) {
+      return game
+    }
+
+    throw new Error(`Game by id ${gameId}, not found`)
   }
 
 }

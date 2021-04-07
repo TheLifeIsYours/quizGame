@@ -33,15 +33,18 @@ exports.default = new /** @class */ (function () {
         this.games = [];
     }
     QuizzGame.prototype.initGames = function () {
-        this.games = data_1.GameData.games.map(function (game) { return new Game_1.default(game); });
+        this.games = data_1.GameData.games.map(function (gameData) { return Game_1.default.fromJSON(gameData); });
     };
     QuizzGame.prototype.getSessions = function () {
         return this.sessions;
     };
     QuizzGame.prototype.createSession = function (playerId, gameId) {
-        var owner = this.players.find(function (p) { return p.id === playerId; });
+        var player = this.players.find(function (p) { return p.id === playerId; });
+        if (!player) {
+            throw new Error("Player by id " + playerId + " not found");
+        }
         var game = this.getGame(gameId);
-        var session = new Session_1.default(owner, game);
+        var session = new Session_1.default(player, game);
         this.sessions.push(session);
         return session;
     };
@@ -52,13 +55,21 @@ exports.default = new /** @class */ (function () {
         this.players.push(player);
     };
     QuizzGame.prototype.getPlayer = function (playerId) {
-        return this.players.find(function (p) { return p.id === playerId; });
+        var player = this.players.find(function (p) { return p.id === playerId; });
+        if (player) {
+            return player;
+        }
+        throw new Error("Player by " + playerId + " not found");
     };
     QuizzGame.prototype.storePlayerData = function () {
         data_1.default.write(this.players);
     };
     QuizzGame.prototype.getGame = function (gameId) {
-        return this.games.find(function (g) { return g.id === gameId; });
+        var game = this.games.find(function (g) { return g.id === gameId; });
+        if (game) {
+            return game;
+        }
+        throw new Error("Game by id " + gameId + ", not found");
     };
     return QuizzGame;
 }());

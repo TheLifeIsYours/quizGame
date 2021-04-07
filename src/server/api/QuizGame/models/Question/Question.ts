@@ -1,11 +1,11 @@
 import Alternative from "../Alternative/Alternative"
 
 class Question {
-  id: string
-  question: string
-  alternatives: Array<Alternative>
-  answer: Alternative
-  status: QuestionStatus = QuestionStatus.Unanswered
+  public id: string
+  public question: string
+  public alternatives: Array<Alternative>
+  public answer: Alternative
+  public status: QuestionStatus = QuestionStatus.Unanswered
 
   constructor(questionData: any) {
     this.id = questionData.id
